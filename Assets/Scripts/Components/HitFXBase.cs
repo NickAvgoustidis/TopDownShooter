@@ -22,10 +22,11 @@ public class HitFXBase : MonoBehaviour
 
     Coroutine flashRoutine;
     Coroutine ScaleRoutine;
-
+    Vector2 defaultScale;
     private void Start()
     {
         defaultColor = renderer.color;
+        defaultScale = transform.localScale;
     }
 
     public void HandleFX()
@@ -90,15 +91,16 @@ public class HitFXBase : MonoBehaviour
 
     IEnumerator Scale()
     {
-        Vector2 defaultScale = transform.localScale;
-        while(transform.localScale.x != targetScale.x)
+        transform.localScale = defaultScale;
+
+        while(!transform.localScale.Equals(targetScale))
         {
         transform.localScale = Vector2.MoveTowards(transform.localScale, targetScale, (duration) * Time.deltaTime * speed);
             yield return null;
         }
 
 
-        while(transform.localScale.x != defaultScale.x)
+        while(!transform.localScale.Equals(defaultScale))
         {
             transform.localScale = Vector2.MoveTowards(transform.localScale, defaultScale, (duration) * Time.deltaTime * speed);
             yield return null;
