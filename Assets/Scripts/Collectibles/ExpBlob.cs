@@ -4,6 +4,7 @@ using UnityEngine;
 public class ExpBlob : Collectible, IUpdate
 {
     [SerializeField] private float expGain = 1;
+    [SerializeField] private float destroyAfter = 15;
 
     public Action UpdateUI { get; set; }
 
@@ -12,7 +13,7 @@ public class ExpBlob : Collectible, IUpdate
         UIController.Instance.AddToUpdateXP(this);
         ExpManager.Instance.AddExp(this);
 
-        Destroy(gameObject, 15);
+        Destroy(gameObject, destroyAfter);
     }
 
     public override void Interact()
